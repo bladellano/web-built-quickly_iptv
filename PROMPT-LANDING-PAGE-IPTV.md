@@ -12,7 +12,9 @@ Para o estilo visual, utilize cores escuras com toques vibrantes, criando um amb
 
 ### Tone
 
-Persuasivo, direto e envolvente, transmitindo a emoção de se ter acesso a uma vasta gama de conteúdos### Audience
+Persuasivo, direto e envolvente, transmitindo a emoção de se ter acesso a uma vasta gama de conteúdos
+
+### Audience
 
 Usuários em busca de soluções de entretenimento, amantes de filmes e séries, e pessoas desejam uma alternativa a TV por assinatura tradicional.
 
