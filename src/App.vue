@@ -22,7 +22,7 @@
 import { computed } from 'vue'
 
 // Número do WhatsApp configurável
-const whatsappNumber = '5511999999999' // Altere para o número desejado
+const whatsappNumber = '351964706755'
 const whatsappMessage = 'Olá! Tenho interesse no plano de IPTV. Pode me ajudar?'
 
 const whatsappLink = computed(() => {
