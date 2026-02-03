@@ -4,8 +4,8 @@
     <HeroSection />
     <BenefitsSection />
     <UrgencySection />
-    <PricingSection />
     <FaqSection />
+    <PricingSection />
     <Footer />
   </div>
 </template>
@@ -15,7 +15,7 @@ import Navbar from '../components/Navbar.vue'
 import HeroSection from '../components/HeroSection.vue'
 import BenefitsSection from '../components/BenefitsSection.vue'
 import UrgencySection from '../components/UrgencySection.vue'
-import PricingSection from '../components/PricingSection.vue'
 import FaqSection from '../components/FaqSection.vue'
+import PricingSection from '../components/PricingSection.vue'
 import Footer from '../components/Footer.vue'
 </script>

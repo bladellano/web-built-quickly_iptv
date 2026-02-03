@@ -1,115 +1,121 @@
 <template>
-  <section id="assinar" class="section bg-dark py-24">
-    <div class="section-container">
+  <section id="pricing" class="py-20 md:py-32 relative overflow-hidden">
+    <!-- Background -->
+    <div class="absolute inset-0 bg-dark-950">
+      <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-primary-500/10 rounded-full filter blur-3xl"></div>
+      <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-accent-500/10 rounded-full filter blur-3xl"></div>
+    </div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Header -->
       <div class="text-center mb-16">
-        <h2 class="section-title">Escolha seu Plano</h2>
-        <p class="section-subtitle">
-          Sem compromisso. Cancele quando quiser.
+        <span class="inline-block px-4 py-2 bg-primary-500/10 text-primary-400 rounded-full text-sm font-medium mb-4">
+          Planos e Preços
+        </span>
+        <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6">
+          Escolha seu 
+          <span class="gradient-text">Plano Ideal</span>
+        </h2>
+        <p class="text-gray-400 text-lg max-w-2xl mx-auto">
+          Temos o plano perfeito para você. Todos incluem acesso completo a canais, filmes e séries.
         </p>
       </div>
 
+      <!-- Pricing Cards -->
       <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-        <!-- Plano Mensal -->
-        <div class="pricing-card">
-          <div class="pricing-header">
-            <h3 class="pricing-title">Mensal</h3>
-            <div class="pricing-price">
-              <span class="currency">R$</span>
-              <span class="amount">49</span>
-              <span class="period">,90/mês</span>
-            </div>
+        <div 
+          v-for="(plan, index) in plans" 
+          :key="index"
+          class="relative glass-card rounded-3xl p-8 transition-all duration-300 transform hover:-translate-y-2"
+          :class="plan.featured ? 'border-2 border-primary-500 shadow-lg shadow-primary-500/20' : 'hover:border-primary-500/30'"
+        >
+          <!-- Badge de destaque -->
+          <div 
+            v-if="plan.featured" 
+            class="absolute -top-4 left-1/2 transform -translate-x-1/2 px-4 py-1 bg-gradient-to-r from-primary-500 to-accent-500 text-white text-sm font-bold rounded-full"
+          >
+            Mais Popular
           </div>
-          
-          <ul class="pricing-features">
-            <li>✅ 1500+ Canais HD/4K</li>
-            <li>✅ Filmes e Séries</li>
-            <li>✅ 1 Dispositivo</li>
-            <li>✅ Suporte 24/7</li>
-            <li>✅ Sem Fidelidade</li>
-          </ul>
 
-          <button @click="selectPlan('mensal')" class="pricing-button">
-            Assinar Agora
-          </button>
-        </div>
-
-        <!-- Plano Trimestral (Popular) -->
-        <div class="pricing-card featured">
-          <div class="popular-badge">MAIS POPULAR</div>
-          <div class="pricing-header">
-            <h3 class="pricing-title">Trimestral</h3>
-            <div class="pricing-price">
-              <span class="currency">R$</span>
-              <span class="amount">39</span>
-              <span class="period">,90/mês</span>
-            </div>
-            <div class="savings">Economize R$ 30</div>
+          <!-- Nome do plano -->
+          <div class="text-center mb-6">
+            <h3 class="text-xl font-bold text-white mb-2">{{ plan.name }}</h3>
+            <p class="text-gray-500 text-sm">{{ plan.description }}</p>
           </div>
-          
-          <ul class="pricing-features">
-            <li>✅ 1500+ Canais HD/4K</li>
-            <li>✅ Filmes e Séries</li>
-            <li>✅ 2 Dispositivos</li>
-            <li>✅ Suporte Prioritário</li>
-            <li>✅ Canais Premium</li>
-            <li>✅ 7 Dias de Garantia</li>
-          </ul>
 
-          <button @click="selectPlan('trimestral')" class="pricing-button featured">
-            Assinar Agora
-          </button>
-        </div>
-
-        <!-- Plano Anual -->
-        <div class="pricing-card">
-          <div class="best-value-badge">MELHOR VALOR</div>
-          <div class="pricing-header">
-            <h3 class="pricing-title">Anual</h3>
-            <div class="pricing-price">
-              <span class="currency">R$</span>
-              <span class="amount">29</span>
-              <span class="period">,90/mês</span>
+          <!-- Preço -->
+          <div class="text-center mb-8">
+            <div class="flex items-center justify-center">
+              <span class="text-gray-500 text-lg">R$</span>
+              <span class="text-5xl font-bold text-white mx-1">{{ plan.price }}</span>
+              <span class="text-gray-500">/mês</span>
             </div>
-            <div class="savings">Economize R$ 240</div>
-          </div>
-          
-          <ul class="pricing-features">
-            <li>✅ 1500+ Canais HD/4K</li>
-            <li>✅ Filmes e Séries</li>
-            <li>✅ 3 Dispositivos</li>
-            <li>✅ Suporte VIP</li>
-            <li>✅ Todos os Canais Premium</li>
-            <li>✅ Conteúdo Exclusivo</li>
-            <li>✅ 30 Dias de Garantia</li>
-          </ul>
-
-          <button @click="selectPlan('anual')" class="pricing-button">
-            Assinar Agora
-          </button>
-        </div>
-      </div>
-
-      <!-- Payment Methods -->
-      <div class="mt-16 text-center">
-        <p class="text-gray-400 mb-4">Formas de Pagamento</p>
-        <div class="flex justify-center gap-6 flex-wrap items-center">
-          <div class="payment-method">💳 Cartão de Crédito</div>
-          <div class="payment-method">💰 PIX</div>
-          <div class="payment-method">🏦 Boleto</div>
-          <div class="payment-method">💵 Débito</div>
-        </div>
-      </div>
-
-      <!-- Guarantee -->
-      <div class="mt-12 max-w-2xl mx-auto">
-        <div class="guarantee-box">
-          <div class="guarantee-icon">🛡️</div>
-          <div>
-            <h4 class="guarantee-title">Garantia de 7 Dias</h4>
-            <p class="guarantee-text">
-              Se você não gostar do serviço, devolvemos 100% do seu dinheiro. 
-              Sem perguntas, sem complicação.
+            <p v-if="plan.oldPrice" class="text-gray-600 line-through text-sm mt-1">
+              De R$ {{ plan.oldPrice }}
             </p>
+          </div>
+
+          <!-- Features -->
+          <ul class="space-y-4 mb-8">
+            <li 
+              v-for="(feature, fIndex) in plan.features" 
+              :key="fIndex"
+              class="flex items-start"
+            >
+              <svg class="w-5 h-5 text-green-400 mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+              </svg>
+              <span class="text-gray-300">{{ feature }}</span>
+            </li>
+          </ul>
+
+          <!-- CTA Button -->
+          <a 
+            :href="plan.link"
+            class="block w-full py-4 text-center font-bold rounded-full transition-all duration-300 transform hover:scale-105"
+            :class="plan.featured 
+              ? 'bg-gradient-to-r from-primary-500 to-accent-500 text-white shadow-lg shadow-primary-500/30 hover:from-primary-600 hover:to-accent-600' 
+              : 'bg-dark-800 text-white border border-gray-700 hover:border-primary-500 hover:text-primary-400'"
+          >
+            {{ plan.cta }}
+          </a>
+        </div>
+      </div>
+
+      <!-- Garantia -->
+      <div class="mt-16 text-center">
+        <div class="inline-flex items-center glass-card rounded-2xl px-8 py-4">
+          <svg class="w-12 h-12 text-green-400 mr-4" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/>
+          </svg>
+          <div class="text-left">
+            <h4 class="text-white font-bold">Garantia de 7 Dias</h4>
+            <p class="text-gray-400 text-sm">Se não gostar, devolvemos 100% do seu dinheiro</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Métodos de pagamento -->
+      <div class="mt-12 text-center">
+        <p class="text-gray-500 text-sm mb-4">Formas de pagamento aceitas:</p>
+        <div class="flex justify-center items-center gap-6 flex-wrap">
+          <div class="flex items-center text-gray-400">
+            <svg class="w-8 h-8 mr-2" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/>
+            </svg>
+            <span class="text-sm">Cartão</span>
+          </div>
+          <div class="flex items-center text-gray-400">
+            <svg class="w-8 h-8 mr-2" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M17.21 9l-4.38-6.56c-.19-.28-.51-.42-.83-.42-.32 0-.64.14-.83.43L6.79 9H2c-.55 0-1 .45-1 1 0 .09.01.18.04.27l2.54 9.27c.23.84 1 1.46 1.92 1.46h13c.92 0 1.69-.62 1.93-1.46l2.54-9.27L23 10c0-.55-.45-1-1-1h-4.79zM9 9l3-4.4L15 9H9zm3 8c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/>
+            </svg>
+            <span class="text-sm">Pix</span>
+          </div>
+          <div class="flex items-center text-gray-400">
+            <svg class="w-8 h-8 mr-2" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>
+            </svg>
+            <span class="text-sm">Boleto</span>
           </div>
         </div>
       </div>
@@ -118,202 +124,54 @@
 </template>
 
 <script setup>
-import { useRouter } from 'vue-router'
-
-const router = useRouter()
-
-const selectPlan = (plan) => {
-  // Simula o processo de seleção de plano
-  console.log(`Plano selecionado: ${plan}`)
-  
-  // Aqui você pode adicionar lógica de pagamento real
-  // Por enquanto, vamos redirecionar para a página de obrigado
-  
-  // Simula um pequeno delay como se estivesse processando
-  setTimeout(() => {
-    router.push('/obrigado')
-  }, 500)
-}
+const plans = [
+  {
+    name: 'Básico',
+    description: 'Ideal para uso individual',
+    price: '24,90',
+    oldPrice: '39,90',
+    features: [
+      'Acesso a todos os canais',
+      'Filmes e séries on demand',
+      '1 tela simultânea',
+      'Qualidade HD',
+      'Suporte por WhatsApp'
+    ],
+    cta: 'Assinar Básico',
+    link: '/obrigado',
+    featured: false
+  },
+  {
+    name: 'Premium',
+    description: 'O mais escolhido pelos clientes',
+    price: '34,90',
+    oldPrice: '59,90',
+    features: [
+      'Tudo do plano Básico',
+      '2 telas simultâneas',
+      'Qualidade Full HD',
+      'Canais de esportes premium',
+      'Suporte prioritário 24h'
+    ],
+    cta: 'Assinar Premium',
+    link: '/obrigado',
+    featured: true
+  },
+  {
+    name: 'Família',
+    description: 'Perfeito para toda a família',
+    price: '49,90',
+    oldPrice: '79,90',
+    features: [
+      'Tudo do plano Premium',
+      '4 telas simultâneas',
+      'Qualidade 4K',
+      'Conteúdo infantil',
+      'Suporte VIP + instalação remota'
+    ],
+    cta: 'Assinar Família',
+    link: '/obrigado',
+    featured: false
+  }
+]
 </script>
-
-<style scoped>
-.pricing-card {
-  background: rgba(255, 255, 255, 0.03);
-  border: 2px solid rgba(255, 255, 255, 0.1);
-  border-radius: 1.5rem;
-  padding: 2rem;
-  position: relative;
-  transition: all 0.3s ease;
-}
-
-.pricing-card:hover {
-  transform: translateY(-8px);
-  border-color: rgba(99, 102, 241, 0.5);
-  box-shadow: 0 20px 40px rgba(99, 102, 241, 0.2);
-}
-
-.pricing-card.featured {
-  background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));
-  border-color: #6366f1;
-  transform: scale(1.05);
-}
-
-.pricing-card.featured:hover {
-  transform: scale(1.05) translateY(-8px);
-}
-
-.popular-badge, .best-value-badge {
-  position: absolute;
-  top: -12px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: linear-gradient(135deg, #6366f1, #8b5cf6);
-  color: white;
-  padding: 0.5rem 1.5rem;
-  border-radius: 2rem;
-  font-size: 0.75rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.best-value-badge {
-  background: linear-gradient(135deg, #f59e0b, #f97316);
-}
-
-.pricing-header {
-  text-align: center;
-  margin-bottom: 2rem;
-  padding-bottom: 2rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.pricing-title {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: white;
-  margin-bottom: 1rem;
-}
-
-.pricing-price {
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  color: white;
-}
-
-.currency {
-  font-size: 1.5rem;
-  margin-top: 0.5rem;
-}
-
-.amount {
-  font-size: 4rem;
-  font-weight: 800;
-  line-height: 1;
-}
-
-.period {
-  font-size: 1rem;
-  color: rgba(255, 255, 255, 0.6);
-  margin-top: 1.5rem;
-}
-
-.savings {
-  margin-top: 0.5rem;
-  color: #10b981;
-  font-weight: 600;
-  font-size: 0.875rem;
-}
-
-.pricing-features {
-  list-style: none;
-  padding: 0;
-  margin: 0 0 2rem 0;
-}
-
-.pricing-features li {
-  color: rgba(255, 255, 255, 0.8);
-  padding: 0.75rem 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  font-size: 0.95rem;
-}
-
-.pricing-features li:last-child {
-  border-bottom: none;
-}
-
-.pricing-button {
-  width: 100%;
-  padding: 1rem;
-  background: rgba(99, 102, 241, 0.2);
-  color: white;
-  border: 2px solid #6366f1;
-  border-radius: 0.75rem;
-  font-weight: 700;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.pricing-button:hover {
-  background: #6366f1;
-  transform: translateY(-2px);
-  box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);
-}
-
-.pricing-button.featured {
-  background: linear-gradient(135deg, #6366f1, #8b5cf6);
-  border: none;
-}
-
-.pricing-button.featured:hover {
-  box-shadow: 0 15px 40px rgba(99, 102, 241, 0.6);
-}
-
-.payment-method {
-  background: rgba(255, 255, 255, 0.05);
-  padding: 0.75rem 1.5rem;
-  border-radius: 0.5rem;
-  color: rgba(255, 255, 255, 0.8);
-  font-size: 0.9rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.guarantee-box {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-  background: rgba(16, 185, 129, 0.1);
-  border: 2px solid rgba(16, 185, 129, 0.3);
-  border-radius: 1rem;
-  padding: 1.5rem;
-}
-
-.guarantee-icon {
-  font-size: 3rem;
-  flex-shrink: 0;
-}
-
-.guarantee-title {
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: #10b981;
-  margin-bottom: 0.5rem;
-}
-
-.guarantee-text {
-  color: rgba(255, 255, 255, 0.7);
-  line-height: 1.6;
-}
-
-@media (max-width: 768px) {
-  .pricing-card.featured {
-    transform: scale(1);
-  }
-
-  .pricing-card.featured:hover {
-    transform: translateY(-8px);
-  }
-}
-</style>

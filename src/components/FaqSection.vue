@@ -1,49 +1,76 @@
 <template>
-  <section id="faq" class="section bg-dark-lighter py-24">
-    <div class="section-container">
+  <section id="faq" class="py-20 md:py-32 relative">
+    <!-- Background -->
+    <div class="absolute inset-0 bg-dark-900">
+      <div class="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-dark-950 to-transparent"></div>
+    </div>
+
+    <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Header -->
       <div class="text-center mb-16">
-        <h2 class="section-title">Perguntas Frequentes</h2>
-        <p class="section-subtitle">
-          Tire suas dúvidas sobre nosso serviço
+        <span class="inline-block px-4 py-2 bg-primary-500/10 text-primary-400 rounded-full text-sm font-medium mb-4">
+          Dúvidas Frequentes
+        </span>
+        <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6">
+          Perguntas 
+          <span class="gradient-text">Frequentes</span>
+        </h2>
+        <p class="text-gray-400 text-lg max-w-2xl mx-auto">
+          Tire suas dúvidas sobre nosso serviço de IPTV. Se não encontrar o que procura, entre em contato conosco.
         </p>
       </div>
 
-      <div class="max-w-3xl mx-auto space-y-4">
+      <!-- FAQ Accordion -->
+      <div class="space-y-4">
         <div 
           v-for="(faq, index) in faqs" 
           :key="index"
-          class="faq-item"
+          class="glass-card rounded-2xl overflow-hidden transition-all duration-300"
+          :class="{ 'border-primary-500/50': activeIndex === index }"
         >
           <button 
-            @click="toggleFaq(index)"
-            class="faq-question"
-            :class="{ 'active': openFaq === index }"
+            @click="toggle(index)"
+            class="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-dark-800/50 transition-colors"
           >
-            <span class="faq-question-text">{{ faq.question }}</span>
+            <span class="text-lg font-semibold text-white pr-4">{{ faq.question }}</span>
             <svg 
-              class="faq-icon"
-              :class="{ 'rotate-180': openFaq === index }"
+              class="w-6 h-6 text-primary-400 transform transition-transform duration-300 flex-shrink-0"
+              :class="{ 'rotate-180': activeIndex === index }"
               fill="none" 
               stroke="currentColor" 
               viewBox="0 0 24 24"
             >
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
             </svg>
           </button>
           
           <transition
-            enter-active-class="transition-all duration-300 ease-out"
-            enter-from-class="max-h-0 opacity-0"
-            enter-to-class="max-h-96 opacity-100"
-            leave-active-class="transition-all duration-200 ease-in"
-            leave-from-class="max-h-96 opacity-100"
-            leave-to-class="max-h-0 opacity-0"
+            enter-active-class="transition duration-300 ease-out"
+            enter-from-class="opacity-0 -translate-y-2"
+            enter-to-class="opacity-100 translate-y-0"
+            leave-active-class="transition duration-200 ease-in"
+            leave-from-class="opacity-100 translate-y-0"
+            leave-to-class="opacity-0 -translate-y-2"
           >
-            <div v-if="openFaq === index" class="faq-answer">
-              {{ faq.answer }}
+            <div v-if="activeIndex === index" class="px-6 pb-5">
+              <p class="text-gray-400 leading-relaxed">{{ faq.answer }}</p>
             </div>
           </transition>
         </div>
+      </div>
+
+      <!-- CTA após FAQ -->
+      <div class="mt-12 text-center">
+        <p class="text-gray-400 mb-4">Ainda tem dúvidas?</p>
+        <a 
+          href="#" 
+          class="inline-flex items-center text-primary-400 hover:text-primary-300 font-medium transition-colors"
+        >
+          Fale com nosso suporte
+          <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+          </svg>
+        </a>
       </div>
     </div>
   </section>
@@ -52,97 +79,44 @@
 <script setup>
 import { ref } from 'vue'
 
-const openFaq = ref(null)
+const activeIndex = ref(null)
 
-const faqs = ref([
+const toggle = (index) => {
+  activeIndex.value = activeIndex.value === index ? null : index
+}
+
+const faqs = [
   {
-    question: 'Como funciona o serviço de IPTV?',
-    answer: 'Nosso serviço de IPTV funciona através de streaming pela internet. Você recebe acesso a uma plataforma com mais de 1500 canais que podem ser assistidos em qualquer dispositivo conectado à internet, como Smart TV, celular, tablet ou computador. É simples, prático e com qualidade HD/4K.'
+    question: 'O que é IPTV e como funciona?',
+    answer: 'IPTV (Internet Protocol Television) é um serviço de streaming que permite assistir canais de TV, filmes e séries pela internet. Você recebe seus dados de acesso e pode assistir em qualquer dispositivo compatível, como Smart TV, celular, computador ou TV Box.'
   },
   {
     question: 'Quais dispositivos são compatíveis?',
-    answer: 'Nosso serviço é compatível com Smart TVs (Samsung, LG, Android TV), smartphones e tablets (iOS e Android), computadores (Windows, Mac, Linux), TV Box, Amazon Fire Stick e qualquer dispositivo que suporte aplicativos de IPTV. Oferecemos suporte completo para configuração.'
+    answer: 'Nosso serviço é compatível com Smart TVs (Samsung, LG, Sony), celulares Android e iOS, computadores (Windows e Mac), tablets, TV Box, Fire Stick, Chromecast e qualquer dispositivo com aplicativo de IPTV.'
   },
   {
-    question: 'Posso assistir em mais de um dispositivo?',
-    answer: 'Sim! Dependendo do plano escolhido, você pode assistir simultaneamente em até 2 ou 3 dispositivos. Isso significa que você e sua família podem assistir canais diferentes ao mesmo tempo sem problemas.'
+    question: 'Qual a qualidade do streaming?',
+    answer: 'Oferecemos conteúdo em qualidade SD, HD e 4K (quando disponível). A qualidade depende da sua velocidade de internet. Recomendamos no mínimo 10 Mbps para HD e 25 Mbps para 4K.'
+  },
+  {
+    question: 'O serviço trava ou tem buffer?',
+    answer: 'Nossos servidores são otimizados para máxima estabilidade. Com uma boa conexão de internet, o serviço funciona sem travamentos. Caso tenha problemas, nosso suporte 24h está disponível para ajudar.'
   },
   {
     question: 'Quais são as formas de pagamento?',
-    answer: 'Aceitamos diversas formas de pagamento incluindo cartão de crédito, cartão de débito, PIX e boleto bancário. O pagamento é processado de forma segura através de plataformas certificadas. Você também pode escolher entre planos mensais, trimestrais ou anuais.'
+    answer: 'Aceitamos cartão de crédito, débito, Pix e boleto bancário. O pagamento é processado de forma segura e você recebe seus dados de acesso imediatamente após a confirmação.'
   },
   {
-    question: 'Tem período de teste?',
-    answer: 'Sim! Oferecemos 7 dias de garantia. Se você não ficar satisfeito com o serviço dentro desse período, devolvemos 100% do seu dinheiro sem perguntas. Queremos que você tenha certeza da qualidade antes de se comprometer.'
+    question: 'Posso cancelar a qualquer momento?',
+    answer: 'Sim! Não há fidelidade. Você pode cancelar seu plano a qualquer momento sem multas ou taxas adicionais. Basta entrar em contato com nosso suporte.'
   },
   {
-    question: 'Como faço para cancelar a assinatura?',
-    answer: 'Você pode cancelar sua assinatura a qualquer momento, sem burocracia e sem multas. Basta entrar em contato com nosso suporte através do WhatsApp ou e-mail e processaremos seu cancelamento imediatamente. Não há período de fidelidade.'
+    question: 'Quantos dispositivos posso usar?',
+    answer: 'Cada plano permite conexões simultâneas. O plano básico permite 1 tela, o intermediário 2 telas e o premium até 4 telas ao mesmo tempo.'
   },
   {
-    question: 'O serviço tem travamentos?',
-    answer: 'Nossos servidores são de alta performance e garantem estabilidade máxima. Para uma experiência sem travamentos, recomendamos uma conexão de internet de pelo menos 10 Mbps. Com infraestrutura premium e monitoramento 24/7, mantemos a qualidade em todos os momentos.'
-  },
-  {
-    question: 'Vocês oferecem suporte técnico?',
-    answer: 'Sim! Nossa equipe de suporte está disponível 24 horas por dia, 7 dias por semana para ajudar você. Oferecemos suporte via WhatsApp, e-mail e chat online. Auxiliamos desde a instalação até a resolução de qualquer problema técnico.'
+    question: 'Vocês oferecem teste grátis?',
+    answer: 'Sim! Oferecemos teste gratuito de 24 horas para novos clientes. Assim você pode conhecer a qualidade do nosso serviço antes de assinar.'
   }
-])
-
-const toggleFaq = (index) => {
-  openFaq.value = openFaq.value === index ? null : index
-}
+]
 </script>
-
-<style scoped>
-.faq-item {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 1rem;
-  overflow: hidden;
-  transition: all 0.3s ease;
-}
-
-.faq-item:hover {
-  border-color: rgba(99, 102, 241, 0.3);
-}
-
-.faq-question {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1.5rem;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-align: left;
-}
-
-.faq-question.active {
-  background: rgba(99, 102, 241, 0.1);
-}
-
-.faq-question-text {
-  color: white;
-  font-size: 1.125rem;
-  font-weight: 600;
-  padding-right: 1rem;
-}
-
-.faq-icon {
-  width: 24px;
-  height: 24px;
-  color: #6366f1;
-  transition: transform 0.3s ease;
-  flex-shrink: 0;
-}
-
-.faq-answer {
-  padding: 0 1.5rem 1.5rem;
-  color: rgba(255, 255, 255, 0.7);
-  line-height: 1.7;
-  overflow: hidden;
-}
-</style>

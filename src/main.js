@@ -1,6 +1,34 @@
 import { createApp } from 'vue'
-import './style.css'
+import { createRouter, createWebHistory } from 'vue-router'
 import App from './App.vue'
-import router from './router'
+import './style.css'
 
-createApp(App).use(router).mount('#app')
+// Import das views
+import Home from './views/Home.vue'
+import ThankYou from './views/ThankYou.vue'
+import SoldOut from './views/SoldOut.vue'
+
+// Configuração das rotas
+const routes = [
+  { path: '/', name: 'Home', component: Home },
+  { path: '/obrigado', name: 'ThankYou', component: ThankYou },
+  { path: '/esgotado', name: 'SoldOut', component: SoldOut },
+]
+
+const router = createRouter({
+  history: createWebHistory(),
+  routes,
+  scrollBehavior(to, from, savedPosition) {
+    if (to.hash) {
+      return {
+        el: to.hash,
+        behavior: 'smooth',
+      }
+    }
+    return { top: 0, behavior: 'smooth' }
+  },
+})
+
+const app = createApp(App)
+app.use(router)
+app.mount('#app')
