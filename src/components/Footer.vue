@@ -10,7 +10,7 @@
                 <path d="M21 3H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h5v2h8v-2h5c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 14H3V5h18v12z"/>
               </svg>
             </div>
-            <span class="text-xl font-bold gradient-text">IPTV Premium</span>
+            <span class="text-2xl font-bold gradient-text" style="font-family: 'Orbitron', sans-serif;">IPTV HIGOR.BR</span>
           </a>
           <p class="text-gray-500 max-w-md mb-6">
             O melhor serviço de IPTV do Brasil. Milhares de canais, filmes e séries na palma da sua mão, com a melhor qualidade e suporte 24 horas.

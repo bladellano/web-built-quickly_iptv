@@ -83,31 +83,18 @@
             <!-- TV Mockup -->
             <div class="relative bg-dark-800 rounded-3xl p-4 border border-gray-700 shadow-2xl">
               <div class="aspect-video bg-gradient-to-br from-primary-900 to-dark-900 rounded-2xl overflow-hidden">
-                <!-- Simulação de tela de TV -->
-                <div class="w-full h-full flex items-center justify-center relative">
-                  <div class="absolute inset-0 bg-gradient-to-br from-primary-500/10 to-accent-500/10"></div>
-                  
-                  <!-- Ícones de conteúdo -->
-                  <div class="grid grid-cols-3 gap-4 p-6">
-                    <div class="bg-dark-800/80 rounded-xl p-4 text-center border border-gray-700">
-                      <svg class="w-8 h-8 mx-auto text-primary-400 mb-2" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M21 3H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h5v2h8v-2h5c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 14H3V5h18v12z"/>
-                      </svg>
-                      <span class="text-xs text-gray-400">TV ao Vivo</span>
-                    </div>
-                    <div class="bg-dark-800/80 rounded-xl p-4 text-center border border-gray-700">
-                      <svg class="w-8 h-8 mx-auto text-accent-400 mb-2" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M18 4l2 4h-3l-2-4h-2l2 4h-3l-2-4H8l2 4H7L5 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4h-4z"/>
-                      </svg>
-                      <span class="text-xs text-gray-400">Filmes</span>
-                    </div>
-                    <div class="bg-dark-800/80 rounded-xl p-4 text-center border border-gray-700">
-                      <svg class="w-8 h-8 mx-auto text-green-400 mb-2" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-                      </svg>
-                      <span class="text-xs text-gray-400">Esportes</span>
-                    </div>
-                  </div>
+                <!-- GIF de programação de TV -->
+                <img 
+                  src="https://media.giphy.com/media/3o7TKSjRrfIPjeiVyM/giphy.gif" 
+                  alt="Streaming de conteúdo" 
+                  class="w-full h-full object-cover"
+                />
+                <!-- Overlay com efeito de brilho -->
+                <div class="absolute inset-0 bg-gradient-to-t from-dark-900/60 via-transparent to-transparent pointer-events-none"></div>
+                <!-- Badge "AO VIVO" -->
+                <div class="absolute top-3 left-3 flex items-center space-x-2 bg-red-600 px-3 py-1 rounded-full">
+                  <span class="w-2 h-2 bg-white rounded-full animate-pulse"></span>
+                  <span class="text-white text-xs font-bold uppercase tracking-wider">AO VIVO</span>
                 </div>
               </div>
               
